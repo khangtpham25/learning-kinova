@@ -1,21 +1,19 @@
 # Copy this file to ~/.config/mc_rtc/mc_rtc.yaml
 
-###################################
-# Default configuration of mc_rtc #
-###################################
-# This file contains the default configuration of mc_rtc
-#
-# You may overwrite any of these settings in
 # - Linux/MacOS: $HOME/.config/mc_rtc/mc_rtc.yaml
 # - Windows:     %APPDATA%/mc_rtc/mc_rtc.conf
 #
 # For further details, refer to https://jrl-umi3218.github.io/mc_rtc/tutorials/introduction/configuration.html
 
-# What robot is being controlled
-MainRobot: Kinova
-# Enabled controllers
-Enabled: [Posture]
-# Controller timestep
+MainRobot: KinovaGripper
+# --- Supported variants ---
+# MainRobot: Kinova
+# MainRobot: KinovaGripper
+# MainRobot: KinovaCamera
+# MainRobot: KinovaCameraGripper
+# MainRobot: KinovaBotaDS4
+# MainRobot: KinovaBota
+Enabled: [KinovaLearning]
 Timestep: 0.001
 # Always include the half-sitting controller
 # IncludeHalfSitController: true
@@ -48,7 +46,32 @@ Kortex:
       gain: 10
 
   # Robot connection parameters
-  kinova_default:
+  kinova:
     ip: 192.168.1.10
     username: admin   # Default username (may differ on your setup)
     password: admin   # Default password
+
+  kinova_gripper:
+    ip: 192.168.1.10
+    username: admin
+    password: admin
+
+  kinova_camera:
+    ip: 192.168.1.10
+    username: admin
+    password: admin
+
+  kinova_camera_gripper:
+    ip: 192.168.1.10
+    username: admin
+    password: admin
+
+  kinova_bota:
+    ip: 192.168.1.10
+    username: admin
+    password: admin
+
+  kinova_bota_ds4:
+    ip: 192.168.1.10
+    username: admin
+    password: admin
