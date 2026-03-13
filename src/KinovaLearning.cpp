@@ -16,9 +16,20 @@ KinovaLearning::KinovaLearning(mc_rbdyn::RobotModulePtr rm, double dt, const mc_
 
 bool KinovaLearning::run()
 {
-  if(postureTask->eval().norm() < 0.02 && postureTask->speed().norm() < 0.01)
+  bool storing = true;
+  if(storing)
   {
-    switchState();
+    if(postureTask->eval().norm() < 0.05 && postureTask->speed().norm() < 0.05)
+    {
+      storeState();
+    }
+  }
+  else
+  {
+    if(postureTask->eval().norm() < 0.02 && postureTask->speed().norm() < 0.01)
+    {
+      switchState();
+    }
   }
   return mc_control::MCController::run();
 }
@@ -28,24 +39,45 @@ void KinovaLearning::reset(const mc_control::ControllerResetData & reset_data)
   mc_control::MCController::reset(reset_data);
 }
 
+void KinovaLearning::storeState()
+{
+  switch(store_state_)
+  {
+    case START:
+      postureTask->target(storePoseStart);
+      store_state_ = FOLD;
+      break;
+
+    case FOLD:
+      postureTask->target(storePoseFold);
+      store_state_ = BEND;
+      break;
+
+    case BEND:
+      postureTask->target(storePoseBend);
+      // state_ = MOVE_UP;
+      break;
+  }
+}
+
 void KinovaLearning::switchState()
 {
-  switch (state_)
+  switch(state_)
   {
-  case IDLE:
-    postureTask->target(defaultPosture);
-    state_ = MOVE_UP;
-    break;
+    case IDLE:
+      postureTask->target(defaultPosture);
+      state_ = MOVE_UP;
+      break;
 
-  case MOVE_UP:
-    postureTask->target(upPosture);
-    state_ = MOVE_DOWN;
-    break;
+    case MOVE_UP:
+      postureTask->target(upPosture);
+      state_ = MOVE_DOWN;
+      break;
 
-  case MOVE_DOWN:
-    postureTask->target(downPosture);
-    state_ = MOVE_UP;
-    break;
+    case MOVE_DOWN:
+      postureTask->target(downPosture);
+      state_ = MOVE_UP;
+      break;
   }
 }
 

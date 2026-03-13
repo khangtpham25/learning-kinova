@@ -5,7 +5,7 @@
 #
 # For further details, refer to https://jrl-umi3218.github.io/mc_rtc/tutorials/introduction/configuration.html
 
-MainRobot: KinovaGripper
+MainRobot: Kinova
 # --- Supported variants ---
 # MainRobot: Kinova
 # MainRobot: KinovaGripper
