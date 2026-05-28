@@ -17,6 +17,7 @@ endif()
 add_subdirectory(src)
 
 set(AROBASE "@")
-configure_file(etc/KinovaLearning.in.yaml "${CMAKE_CURRENT_BINARY_DIR}/etc/KinovaLearning.yaml")
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/etc/KinovaLearning.yaml" DESTINATION "${MC_CONTROLLER_RUNTIME_INSTALL_PREFIX}/etc")
-
+configure_file(etc/KinovaLearning.in.yaml
+               "${CMAKE_CURRENT_BINARY_DIR}/etc/KinovaLearning.yaml")
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/etc/KinovaLearning.yaml"
+        DESTINATION "${MC_CONTROLLER_RUNTIME_INSTALL_PREFIX}/etc")
