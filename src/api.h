@@ -1,5 +1,7 @@
 #pragma once
 
+// NOLINTBEGIN(readability-identifier-naming)
+
 #if defined _WIN32 || defined __CYGWIN__
 #define KinovaLearning_DLLIMPORT __declspec(dllimport)
 #define KinovaLearning_DLLEXPORT __declspec(dllexport)
@@ -33,3 +35,5 @@
 #endif // KinovaLearning_EXPORTS
 #define KinovaLearning_LOCAL KinovaLearning_DLLLOCAL
 #endif // KinovaLearning_STATIC
+
+// NOLINTEND(readability-identifier-naming)

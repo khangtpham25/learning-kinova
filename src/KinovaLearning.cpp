@@ -1,7 +1,7 @@
 #include "KinovaLearning.h"
 
 KinovaLearning::KinovaLearning(mc_rbdyn::RobotModulePtr rm, double dt, const mc_rtc::Configuration &config)
-    : mc_control::MCController(rm, dt)
+    : mc_control::MCController(std::move(rm), dt)
 {
   solver().addConstraintSet(contactConstraint);
   solver().addConstraintSet(selfCollisionConstraint);
@@ -44,17 +44,17 @@ void KinovaLearning::storeState()
   switch (store_state_)
   {
   case START:
-    postureTask->target(storePoseStart);
+    postureTask->target(store_pose_start_);
     store_state_ = FOLD;
     break;
 
   case FOLD:
-    postureTask->target(storePoseFold);
+    postureTask->target(store_pose_fold_);
     store_state_ = BEND;
     break;
 
   case BEND:
-    postureTask->target(storePoseBend);
+    postureTask->target(store_pose_bend_);
     // state_ = MOVE_UP;
     break;
   }
@@ -65,17 +65,17 @@ void KinovaLearning::switchState()
   switch (state_)
   {
   case IDLE:
-    postureTask->target(defaultPosture);
+    postureTask->target(default_posture_);
     state_ = MOVE_UP;
     break;
 
   case MOVE_UP:
-    postureTask->target(upPosture);
+    postureTask->target(up_posture_);
     state_ = MOVE_DOWN;
     break;
 
   case MOVE_DOWN:
-    postureTask->target(downPosture);
+    postureTask->target(down_posture_);
     state_ = MOVE_UP;
     break;
   }
